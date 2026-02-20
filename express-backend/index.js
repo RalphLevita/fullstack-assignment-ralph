@@ -12,5 +12,5 @@
 
   const { server } = require('./app')
   const { API_PORT, HTTPS_CERTIFICATE } = process.env
-  server.listen(API_PORT, () => console.info(`[(${process.env.NODE_ENV}) ${process.env.APP_VERSION}] listening on port ${API_PORT}, https=${Boolean(HTTPS_CERTIFICATE)}`))
+  server.listen(API_PORT, '0.0.0.0', () => console.info(`[(${process.env.NODE_ENV}) ${process.env.APP_VERSION}] listening on port ${API_PORT}, https=${Boolean(HTTPS_CERTIFICATE)}`))
 }())
