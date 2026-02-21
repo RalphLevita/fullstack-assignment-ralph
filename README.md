@@ -12,24 +12,16 @@ This project implements a full-stack web application with:
 
 ---
 
-## Tech Stack
-
-| Layer    | Technologies                          |
-|----------|---------------------------------------|
-| Frontend | Vue 3, Vite                           |
-| Backend  | Node.js, Express, Knex, SQLite        |
-| Auth     | JWT (Access + Refresh), OTP           |
-
----
-
 ## Project Structure
 
 ```
 fullstack-assignment-ralph/
-├── express-backend/       # Express API server
-├── vue-frontend/          # Vue.js frontend app
-├── dotnet-rest-api/RestApi
-├── dotnet-socket
+├── express-backend/           # Express API server
+├── vue-frontend/              # Vue.js frontend app
+├── dotnet-rest-api/           # C# REST API (.NET 8)
+│   └── RestApi/
+├── dotnet-websocket/          # C# WebSocket Echo Server (.NET 8)
+│   └── WebSocketApp/
 └── README.md
 ```
 
@@ -64,11 +56,11 @@ npm run sample
 
 ## Login Credentials
 
-| Field    | Value    |
-|----------|----------|
-| Email    | test     |
-| Password | test     |
-| OTP      | 111111   |
+| Field    | Value  |
+| -------- | ------ |
+| Email    | test   |
+| Password | test   |
+| OTP      | 111111 |
 
 ---
 
@@ -87,7 +79,6 @@ npm run sample
 - Switched refresh token storage from `keyv` to `knex` due to runtime issue.
 - Created missing `user_session` table for SQLite persistence.
 
-
 ## .NET REST API
 
 Location:
@@ -95,14 +86,54 @@ dotnet-rest-api/RestApi
 
 Run (inside WSL Ubuntu):
 
+```bash
 cd ~/fullstack-assignment-ralph/dotnet-rest-api/RestApi
 dotnet run --urls http://localhost:5275
+```
 
 Available endpoints:
 
-GET    /health
-GET    /api/echo/{msg}
-POST   /api/sum
+- `GET /health`
+- `GET /api/echo/{msg}`
+- `POST /api/sum`
 
 Swagger:
 http://localhost:5275/swagger
+
+---
+
+## C# WebSocket Echo Server
+
+Location:
+dotnet-websocket/WebSocketApp
+
+Features:
+
+- Echo WebSocket server on port 8000
+- Beautiful HTML/JS web client
+- Health check and info endpoints
+- CORS support
+- Works on Windows & Linux
+
+Run (Windows or WSL):
+
+```bash
+cd ~/fullstack-assignment-ralph/dotnet-websocket/WebSocketApp
+dotnet build
+dotnet run
+```
+
+Access the web client:
+http://localhost:8000
+
+WebSocket endpoint:
+ws://localhost:8000/ws
+
+Available endpoints:
+
+- `GET /` - Web test client
+- `GET /health` - Health check
+- `GET /info` - Server info
+- `WS /ws` - WebSocket echo endpoint
+
+For detailed setup and documentation, see: `dotnet-websocket/README.md`
